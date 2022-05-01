@@ -11,12 +11,12 @@ gg_season(credit_ts)
 
 #Arima
 fit <- credit_ts %>%
-  model(arima1 = ARIMA(ï..credit_in_millions ~ pdq(2,1,0)),
-        arima2 = ARIMA(ï..credit_in_millions ~pdq(0,1,3)),
-        arima3 = ARIMA(ï..credit_in_millions ~pdq(2,0,2)),
-        arima4 = ARIMA(ï..credit_in_millions ~pdq(1,2,1)),
-        arimastepwise = ARIMA(ï..credit_in_millions),
-        searching = ARIMA(ï..credit_in_millions, stepwise = FALSE))
+  model(arima1 = ARIMA(Ã¯..credit_in_millions ~ pdq(2,1,0)),
+        arima2 = ARIMA(Ã¯..credit_in_millions ~pdq(0,1,3)),
+        arima3 = ARIMA(Ã¯..credit_in_millions ~pdq(2,0,2)),
+        arima4 = ARIMA(Ã¯..credit_in_millions ~pdq(1,2,1)),
+        arimastepwise = ARIMA(Ã¯..credit_in_millions),
+        searching = ARIMA(Ã¯..credit_in_millions, stepwise = FALSE))
 
 glance(fit) %>% arrange(AICc)
 
@@ -24,13 +24,19 @@ fit <- credit_ts %>% model(ARIMA())
 report(fit)
 
 fit %>% forecast(h=12) %>% autoplot(credit_ts)
-        
-        
-
+              
 
 #Tslm
+credit_ts %>%
+  ggplot(aes(x = month, y = Ã¯..credit_in_millions)) +
+  labs(y = "Credit in millions",
+       x = "Month") +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)  
 
-
+credit_ts %>%
+  model(TSLM(Ã¯..credit_in_millions ~ month)) %>%
+  report()
 #Naive
 
 
